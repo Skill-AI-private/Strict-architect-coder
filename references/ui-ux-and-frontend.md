@@ -1,4 +1,4 @@
-# Playbook: UI/UX Usability Auditing & Frontend Engineering
+# Playbook: UI/UX Usability Auditing & Frontend Engineering (v3.0)
 
 Use this playbook whenever the user asks to create, fix, or optimize user interfaces, user flows, buttons, forms, or visual interactions.
 
@@ -8,31 +8,28 @@ Use this playbook whenever the user asks to create, fix, or optimize user interf
 
 When a user says *"This UI is confusing/hard to use"* or questions a specific UI element (e.g., *"Why is there a Complete button here when I don't know if this step needs code?"*):
 
-1. **Map the User's Mental Model vs. Current UI:**
-   - **What does the user currently see?** (Labels, buttons, status indicators).
-   - **What information is missing before the user can take action?** (e.g., Does the step require manual action, AI code generation, or review? Is a button shown prematurely?).
+1. **Explain the UX Friction in Plain Client Language:**
+   - Do not dump component code or state hook names on the user.
+   - Clearly state: *"Hiện tại màn hình đang gây khó hiểu vì [lý do trải nghiệm], khiến người dùng không biết khi nào nên bấm [Tên nút]."*
 2. **Audit Action Clarity (Button & Control Rules):**
-   - **No Blind Actions:** Never show a primary action button (like *"Complete"*, *"Submit"*, or *"Next"*) without making the current step's prerequisite state and consequence obvious.
-   - **Contextual Labeling:** Replace vague labels (*"Complete"*, *"OK"*, *"Run"*) with specific, state-aware labels (e.g., *"Mark Review Complete (No Code Needed)"*, *"Generate Code for Step 2"*, *"Approve & Continue to Step 3"*).
-   - **Progressive Disclosure:** Hide or disable secondary/completion actions until required preconditions are met, or display a clear helper badge explaining *why* an action is available.
+   - **No Blind Actions:** Never show a primary action button (like *"Hoàn thành"*, *"Submit"*, or *"Next"*) without making the current step's prerequisite state and consequence obvious.
+   - **Contextual Labeling:** Replace vague labels (*"Hoàn thành"*, *"OK"*, *"Run"*) with specific, state-aware labels (e.g., *"Đã xem xong (Bước này không cần Code)"*, *"Tạo Code cho Bước 2"*, *"Duyệt & Sang Bước 3"*).
+   - **Visual Status Badges:** Clearly badge whether a step or card is `[Cần viết Code]`, `[Chỉ đọc hướng dẫn]`, `[Đang chạy...]`, or `[Đã hoàn tất]`.
 
 ---
 
-## 2. The 5-State UI Completeness Matrix (`[MODE: BLUEPRINT]`)
+## 2. Presenting UI Changes in Part 1 vs. Part 2 of the Plan
 
-Every interactive component or screen must explicitly account for all 5 states before coding:
-
-| UI State | Required Visual & Functional Behavior |
-| :--- | :--- |
-| **1. Empty / Initial** | Clear onboarding hint, step badge (e.g., `Requires Code` vs. `Discussion Only`), and obvious starting action. |
-| **2. Loading / Pending** | Disable duplicate clicks, show active progress indicator, and provide a **Cancel/Stop** escape hatch for long tasks. |
-| **3. Partial / In-Progress** | Show clearly what has been completed and what remains before the final action is unlocked. |
-| **4. Error / Blocked** | Explain *what* failed in plain language and provide a direct recovery action (Retry / Edit). |
-| **5. Completed / Success** | Visual confirmation (checkmark/badge) and smooth transition to the next logical step. |
+1. **In Part 1 (Client View):**
+   - Show the **Before vs. After comparison table**.
+   - Draw an **ASCII Wireframe** showing exact button labels, badges, and placement.
+   - Write the **Step-by-Step User Journey** (*"Khi bạn mở màn hình -> Khi bạn bấm nút -> Khi hoàn tất"*).
+2. **In Part 2 (Collapsed `<details>` AI Technical Spec):**
+   - Map all 5 UI states (`Empty/Initial`, `Loading/Pending + Cancel button`, `Partial/In-Progress`, `Error`, `Completed/Success`) to their exact component props and state variables.
 
 ---
 
 ## 3. Frontend Execution Guardrails
 
 - **Preserve Layout & Responsive Integrity:** Check flex/grid containers, overflow behavior (`min-w-0`, text truncation/wrapping), and mobile/desktop breakpoints.
-- **Zero Backend Drift:** Do not touch backend APIs or CLI runners when solving a frontend usability problem unless a new data field is strictly required and approved in `[MODE: BLUEPRINT]`.
+- **Zero Backend Drift:** Never touch backend APIs or run CLI benchmarks when solving a frontend usability problem unless explicitly approved in the Blueprint.

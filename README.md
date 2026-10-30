@@ -1,35 +1,45 @@
-# Strict Architect & Spec-Driven Coder (`strict-architect-coder` v2.0)
+# Strict Architect & Spec-Driven Coder (`strict-architect-coder` v3.0)
 
-A universal, modular **Agent Skill Suite** (`SKILL.md` + specialized reference playbooks) engineered to make **any AI coding assistant** (Antigravity, Claude Code, Cursor, GitHub Copilot, Codex CLI, Windsurf, Cline, RooCode) plan rigorously, isolate scope, design intuitive UI/UX, and write surgical, verified code.
+**Bridging the Gap Between Client Vision & AI Engineering.**
+
+A universal, modular **Agent Skill Suite** (`SKILL.md` + specialized reference playbooks) engineered for **Antigravity, Claude Code, Cursor, GitHub Copilot, Codex CLI, Windsurf, Cline, and RooCode**.
 
 ---
 
-## Architecture of This Skill Suite
+## Why v3.0? The "Client & Engineering Team" Dual-Layer Architecture
+
+Standard AI planning tools (`/plan`, `/grill-me`) fail non-technical or product-focused users because they output walls of programming jargon (`props`, `useState`, `interfaces`, `endpoints`) that a client cannot evaluate—or conversely, if prompted to "keep it simple", the AI loses technical precision and writes buggy code.
+
+**v3.0 solves both problems simultaneously with a Dual-Layer Protocol:**
+
+1. **🎯 Layer 1 — Client-First Presentation (Visible at the top for you to review):**
+   - Written **100% in plain, everyday product language** (Zero code jargon).
+   - Includes a **Before vs. After Experience Table**, **Visual ASCII Screen Wireframe**, and **Step-by-Step Interactive User Journey** (*"When you click X -> Screen shows Y"*).
+   - During `/grill-me` interviews, the AI decides pure technical details silently and only asks you **product/UX questions** with clear real-world Pros & Cons.
+2. **🛠️ Layer 2 — AI Technical Spec (Tucked inside a collapsible `<details>` block at the bottom):**
+   - Hidden from your reading flow so you are never overwhelmed by code jargon.
+   - Contains strict file boundaries (`Modify` vs. `Do Not Touch`), TypeScript/Python contract checks, a 5-State UI Matrix, and atomic micro-tasks so the AI executes code with surgical accuracy.
+
+---
+
+## Repository Structure
 
 ```text
 strict-architect-coder/
-├── SKILL.md                                  # Core 4-Mode State Machine, Complexity Triage & Laws
-├── references/                               # Progressive Disclosure Playbooks (Loaded on demand)
-│   ├── planning-and-architecture.md          # Dependency audit & atomic task decomposition
-│   ├── ui-ux-and-frontend.md                 # Cognitive load audit & 5-State UI Completeness Matrix
-│   └── systematic-debugging.md               # 4-Step scientific root-cause debugging loop
-└── scripts/                                  # Multi-AI Universal Installers
-    ├── install.ps1                           # Windows PowerShell installer
-    └── install.sh                            # macOS / Linux Bash installer
+├── SKILL.md                                           # Core v3.0 Dual-Layer Protocol & Laws
+├── references/                                        # Progressive Disclosure Playbooks
+│   ├── client-communication-and-plan-template.md      # Jargon-to-Client Dictionary & Wireframe Templates
+│   ├── planning-and-architecture.md                   # Dependency audit & atomic task decomposition
+│   ├── ui-ux-and-frontend.md                          # Cognitive load audit & 5-State UI Matrix
+│   └── systematic-debugging.md                        # 4-Step scientific root-cause debugging loop
+└── scripts/                                           # Multi-AI Universal Installers
+    ├── install.ps1                                    # Windows PowerShell installer
+    └── install.sh                                     # macOS / Linux Bash installer
 ```
 
 ---
 
-## Why Any AI Performs Better With v2.0
-
-1. **Explicit State Machine Anchoring (`[MODE: DISCOVERY]` -> `[MODE: BLUEPRINT]` -> `[MODE: EXECUTE]` -> `[MODE: VERIFY]`):** Forces any LLM (large or small) to declare its current engineering phase before generating text or calling tools, preventing premature coding.
-2. **3-Tier Complexity Triage:** Prevents over-planning trivial 1-line fixes (Tier 1) while enforcing strict blueprints and UX discovery gates on complex features (Tier 2 & Tier 3).
-3. **Concrete Blueprint Template:** Gives the model an exact markdown schema to fill out (Objective, Scope Boundary, Impact Check, Atomic Tasks, Verification Plan).
-4. **Progressive Disclosure Reference Playbooks:** Keeps token usage low while providing deep checklists for Architecture, UI/UX State Matrices, and Root-Cause Debugging when needed.
-
----
-
-## Quick Install (All AI Agents)
+## Quick Install
 
 ### 1. One-Line Install for Antigravity (Global)
 
@@ -43,9 +53,9 @@ git clone https://github.com/Skill-AI-private/Strict-architect-coder.git "$HOME\
 git clone https://github.com/Skill-AI-private/Strict-architect-coder.git ~/.gemini/config/skills/strict-architect-coder
 ```
 
-### 2. Universal Install Across Antigravity + Claude Code + Copilot
+*(If already cloned previously, simply run `git -C "$HOME\.gemini\config\skills\strict-architect-coder" pull` to update to v3.0!)*
 
-Clone anywhere and run the installer script:
+### 2. Universal Install Across Antigravity + Claude Code + Copilot
 
 **Windows (PowerShell):**
 ```powershell
@@ -57,9 +67,4 @@ git clone https://github.com/Skill-AI-private/Strict-architect-coder.git
 ```bash
 git clone https://github.com/Skill-AI-private/Strict-architect-coder.git
 bash ./Strict-architect-coder/scripts/install.sh all
-```
-
-### 3. Project / Workspace Install (`.agents/`, `.claude/`, `.github/`)
-```powershell
-.\Strict-architect-coder\scripts\install.ps1 -Target workspace -WorkspacePath "path\to\your\project"
 ```

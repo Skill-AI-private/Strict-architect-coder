@@ -1,40 +1,47 @@
-# Playbook: Spec-Driven Planning & Architecture
+# Playbook: Spec-Driven Planning & Architecture (Dual-Layer v3.0)
 
 Use this playbook when executing **Tier 2** or **Tier 3** features, system design, or multi-file refactoring.
 
 ---
 
-## 1. Pre-Planning Dependency Audit
+## 1. Dual-Layer Planning Rule (Client Top, Engineer Bottom)
 
-Before proposing file changes, trace the 3-layer dependency chain of the target feature:
+Every plan must serve two audiences simultaneously without mixing their languages:
+1. **Top Layer (For the Human Client / Product Owner):**
+   - Explains **what changes in the product experience** using everyday language, Before/After tables, ASCII wireframes, and step-by-step user journeys (see [client-communication-and-plan-template.md](./client-communication-and-plan-template.md)).
+2. **Bottom Collapsible Layer (`<details>` Technical Spec for the AI Engineer):**
+   - Contains the exact engineering blueprint described below so the coding phase is 100% deterministic.
+
+---
+
+## 2. Pre-Planning Dependency Audit (For the AI Technical Spec)
+
+Before writing the collapsed Technical Spec, trace the 3-layer dependency chain of the target feature:
 
 1. **Upstream Data Source:** Where does the data or state originate? (API response, database query, global store, URL params, parent props).
 2. **Transformation Layer:** How is the data validated, formatted, or computed?
 3. **Downstream Consumers:** Which UI components, API endpoints, or background workers consume this output?
 
-> **Rule:** If changing a shared interface/type breaks >2 downstream consumers, consider extending the interface (backward-compatible optional fields) rather than mutating existing fields.
+> **Backward-Compatibility Rule:** If changing a shared interface/type breaks >2 downstream consumers, prefer extending the interface with optional fields rather than breaking existing callers.
 
 ---
 
-## 2. Decomposition into Atomic Micro-Tasks
+## 3. Decomposition into Atomic Micro-Tasks
 
-Break complex features into sequential, independently verifiable tasks ordered from **foundational contracts** to **surface integration**:
+Inside the collapsed `<details>` Technical Spec, order tasks sequentially from **foundational contracts** to **surface integration**:
 
-1. **Step 1: Types, Schemas & Data Contracts**
+1. **Task 1: Types, Schemas & Data Contracts**
    - Define or update interfaces, types, and validation schemas first.
-2. **Step 2: Pure Business Logic / State Store / Services**
+2. **Task 2: Pure Business Logic / State Store / Services**
    - Implement core state transitions or API handlers in isolation.
-3. **Step 3: UI Components / Presentation Layer**
-   - Wire the verified state/props into the visual components.
-4. **Step 4: Cleanup & Edge-Case Hardening**
+3. **Task 3: UI Components / Presentation Layer**
+   - Wire the verified state/props into the visual components matching the ASCII wireframe from Part 1.
+4. **Task 4: Cleanup & Edge-Case Hardening**
    - Remove dead code, unused imports, and verify boundary conditions (`null`, `undefined`, empty arrays, network timeouts).
 
 ---
 
-## 3. Architecture Decision Checklist
+## 4. Architecture Decision Ownership
 
-When choosing between implementation approaches during `[MODE: DISCOVERY]` or `[MODE: BLUEPRINT]`:
-
-- **Follow Existing Codebase Patterns First:** Match the project's existing folder structure, naming conventions, state management library, and styling system. Do not introduce a new library or pattern if the codebase already has a convention for it.
-- **Single Responsibility:** Keep data fetching, business rules, and UI rendering cleanly separated.
-- **Reversibility:** Prefer modular changes that can be cleanly reverted without cascading breakage.
+- **Pure Engineering Choices = AI Decides Silently:** Match the project's existing folder structure, naming conventions, state management library, and styling system automatically without bothering the user.
+- **Product & UX Trade-offs = Ask the User in Plain Language:** Only surface decisions to the user when they impact visible behavior, data persistence expectations, or workflow steps.
