@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
-Universal Installer for:
-  1. strict-architect-coder (v3.5 Dual-Layer + Graphify Knowledge Graph Skill)
-  2. ui-ux-design-master (12 GitHub Design Repos + 4 Usability/Stability Pillars Skill)
-  3. Graphify CLI Integration (Graphify-Labs/graphify)
-Supports: Antigravity, Claude Code, Cursor, GitHub Copilot, and Workspace installation.
+Universal Installer (v4.0 Auto-Pilot & Anti-Amnesia Edition) for:
+  1. Always-On Autopilot Rules (GEMINI.md, CLAUDE.md, AGENTS.md, always-on-autopilot.md) -> Zero-Prompt Activation!
+  2. strict-architect-coder (v4.0 Dual-Layer + Graphify + Persistent Project Memory Skill)
+  3. ui-ux-design-master (12 GitHub Design Repos + 4 Usability/Stability Pillars Skill)
+  4. Graphify CLI Integration (Graphify-Labs/graphify)
 #>
 
 param(
@@ -26,7 +26,7 @@ function Install-SkillSuite([string]$BaseSkillsDir) {
         Copy-Item -Path (Join-Path $RepoRoot "SKILL.md") -Destination $Dest1 -Force
         Copy-Item -Path (Join-Path $RepoRoot "references") -Destination $Dest1 -Recurse -Force
     }
-    Write-Host "[OK] Ready: strict-architect-coder (v3.5 + Graphify Engine) -> $Dest1" -ForegroundColor Green
+    Write-Host "[OK] Skill Ready: strict-architect-coder (v4.0) -> $Dest1" -ForegroundColor Green
 
     # 2. Install ui-ux-design-master
     $Source2 = Join-Path $RepoRoot "ui-ux-design-master"
@@ -37,7 +37,42 @@ function Install-SkillSuite([string]$BaseSkillsDir) {
         }
         Copy-Item -Path (Join-Path $Source2 "SKILL.md") -Destination $Dest2 -Force
         Copy-Item -Path (Join-Path $Source2 "references") -Destination $Dest2 -Recurse -Force
-        Write-Host "[OK] Installed: ui-ux-design-master (12 Repos + 4 Stability Pillars) -> $Dest2" -ForegroundColor Cyan
+        Write-Host "[OK] Skill Installed: ui-ux-design-master (16-in-1) -> $Dest2" -ForegroundColor Cyan
+    }
+}
+
+function Install-AlwaysOnRules {
+    $RuleWithFrontmatter = Join-Path $RepoRoot "rules\always-on-autopilot.md"
+    $RuleStandalone = Join-Path $RepoRoot "rules\GEMINI.md"
+
+    if ($Target -in @("all", "antigravity")) {
+        $GlobalRulesDir = "$HOME\.gemini\config\rules"
+        if (-not (Test-Path $GlobalRulesDir)) {
+            New-Item -ItemType Directory -Force -Path $GlobalRulesDir | Out-Null
+        }
+        Copy-Item -Path $RuleWithFrontmatter -Destination (Join-Path $GlobalRulesDir "always-on-autopilot.md") -Force
+        Copy-Item -Path $RuleStandalone -Destination "$HOME\.gemini\GEMINI.md" -Force
+        Copy-Item -Path $RuleStandalone -Destination "$HOME\.gemini\config\GEMINI.md" -Force
+        Write-Host "[OK] Always-On Autopilot Rule Installed Globally for Antigravity (Zero-Prompt Mode Active!)" -ForegroundColor Magenta
+    }
+
+    if ($Target -in @("all", "claude")) {
+        if (-not (Test-Path "$HOME\.claude")) {
+            New-Item -ItemType Directory -Force -Path "$HOME\.claude" | Out-Null
+        }
+        Copy-Item -Path $RuleStandalone -Destination "$HOME\.claude\CLAUDE.md" -Force
+        Write-Host "[OK] Always-On Autopilot Rule Installed Globally for Claude Code (~/.claude/CLAUDE.md)" -ForegroundColor Magenta
+    }
+
+    if ($Target -eq "workspace") {
+        $WsRulesDir = Join-Path $WorkspacePath ".agents\rules"
+        if (-not (Test-Path $WsRulesDir)) {
+            New-Item -ItemType Directory -Force -Path $WsRulesDir | Out-Null
+        }
+        Copy-Item -Path $RuleWithFrontmatter -Destination (Join-Path $WsRulesDir "always-on-autopilot.md") -Force
+        Copy-Item -Path $RuleStandalone -Destination (Join-Path $WorkspacePath "GEMINI.md") -Force
+        Copy-Item -Path $RuleStandalone -Destination (Join-Path $WorkspacePath "AGENTS.md") -Force
+        Write-Host "[OK] Workspace Always-On Rules (GEMINI.md, AGENTS.md, .agents/rules/) Installed -> $WorkspacePath" -ForegroundColor Magenta
     }
 }
 
@@ -58,6 +93,8 @@ if ($Target -eq "workspace") {
     Install-SkillSuite (Join-Path $WorkspacePath ".github\skills")
     Install-SkillSuite (Join-Path $WorkspacePath ".claude\skills")
 }
+
+Install-AlwaysOnRules
 
 if ($WithGraphifyCLI) {
     Write-Host "[INFO] Checking Graphify CLI (Graphify-Labs/graphify)..." -ForegroundColor Yellow
