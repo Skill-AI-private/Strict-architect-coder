@@ -1,7 +1,9 @@
 <#
 .SYNOPSIS
-Universal Installer for Strict Architect & Spec-Driven Coder Skill (Windows PowerShell)
-Supports: Antigravity, Claude Code, Cursor, GitHub Copilot, Codex / Universal AGENTS.md
+Universal Installer for:
+  1. strict-architect-coder (Dual-Layer Client-First & AI-Spec Planning/Coding Skill)
+  2. ui-ux-design-master (12 GitHub Design Repos + 4 Usability/Stability Pillars Skill)
+Supports: Antigravity, Claude Code, Cursor, GitHub Copilot, and Workspace installation.
 #>
 
 param(
@@ -10,31 +12,47 @@ param(
     [string]$WorkspacePath = (Get-Location).Path
 )
 
-$SkillRoot = Split-Path -Parent $PSScriptRoot
+$RepoRoot = Split-Path -Parent $PSScriptRoot
 
-function Copy-SkillFolder([string]$DestDir) {
-    if (-not (Test-Path $DestDir)) {
-        New-Item -ItemType Directory -Force -Path $DestDir | Out-Null
+function Install-SkillSuite([string]$BaseSkillsDir) {
+    # 1. Install strict-architect-coder
+    $Dest1 = Join-Path $BaseSkillsDir "strict-architect-coder"
+    if (-not (Test-Path $Dest1)) {
+        New-Item -ItemType Directory -Force -Path $Dest1 | Out-Null
     }
-    Copy-Item -Path (Join-Path $SkillRoot "SKILL.md") -Destination $DestDir -Force
-    Copy-Item -Path (Join-Path $SkillRoot "references") -Destination $DestDir -Recurse -Force
-    Write-Host "[OK] Installed strict-architect-coder to: $DestDir" -ForegroundColor Green
+    if ((Resolve-Path $RepoRoot).Path -ne (Resolve-Path $Dest1).Path) {
+        Copy-Item -Path (Join-Path $RepoRoot "SKILL.md") -Destination $Dest1 -Force
+        Copy-Item -Path (Join-Path $RepoRoot "references") -Destination $Dest1 -Recurse -Force
+    }
+    Write-Host "[OK] Ready: strict-architect-coder -> $Dest1" -ForegroundColor Green
+
+    # 2. Install ui-ux-design-master
+    $Source2 = Join-Path $RepoRoot "ui-ux-design-master"
+    $Dest2 = Join-Path $BaseSkillsDir "ui-ux-design-master"
+    if (Test-Path $Source2) {
+        if (-not (Test-Path $Dest2)) {
+            New-Item -ItemType Directory -Force -Path $Dest2 | Out-Null
+        }
+        Copy-Item -Path (Join-Path $Source2 "SKILL.md") -Destination $Dest2 -Force
+        Copy-Item -Path (Join-Path $Source2 "references") -Destination $Dest2 -Recurse -Force
+        Write-Host "[OK] Installed: ui-ux-design-master (12 Repos + 4 Stability Pillars) -> $Dest2" -ForegroundColor Cyan
+    }
 }
 
 if ($Target -in @("all", "antigravity")) {
-    Copy-SkillFolder "$HOME\.gemini\config\skills\strict-architect-coder"
+    Install-SkillSuite "$HOME\.gemini\config\skills"
 }
 
 if ($Target -in @("all", "claude")) {
-    Copy-SkillFolder "$HOME\.claude\skills\strict-architect-coder"
+    Install-SkillSuite "$HOME\.claude\skills"
 }
 
 if ($Target -in @("all", "copilot")) {
-    Copy-SkillFolder "$HOME\.copilot\skills\strict-architect-coder"
+    Install-SkillSuite "$HOME\.copilot\skills"
 }
 
 if ($Target -eq "workspace") {
-    Copy-SkillFolder (Join-Path $WorkspacePath ".agents\skills\strict-architect-coder")
-    Copy-SkillFolder (Join-Path $WorkspacePath ".github\skills\strict-architect-coder")
-    Copy-SkillFolder (Join-Path $WorkspacePath ".claude\skills\strict-architect-coder")
+    Install-SkillSuite (Join-Path $WorkspacePath ".agents\skills")
+    Install-SkillSuite (Join-Path $WorkspacePath ".github\skills")
+    Install-SkillSuite (Join-Path $WorkspacePath ".claude\skills")
 }

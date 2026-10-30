@@ -1,70 +1,38 @@
-# Strict Architect & Spec-Driven Coder (`strict-architect-coder` v3.0)
+# Complete AI Engineering & UI/UX Design Skill Suite (`v3.5`)
 
-**Bridging the Gap Between Client Vision & AI Engineering.**
+**Repository:** `https://github.com/Skill-AI-private/Strict-architect-coder.git`
 
-A universal, modular **Agent Skill Suite** (`SKILL.md` + specialized reference playbooks) engineered for **Antigravity, Claude Code, Cursor, GitHub Copilot, Codex CLI, Windsurf, Cline, and RooCode**.
+This repository bundles **2 powerhouse Agent Skills** that work together across **Antigravity, Claude Code, Cursor, GitHub Copilot, Codex CLI, Windsurf, Cline, and RooCode**:
 
----
-
-## Why v3.0? The "Client & Engineering Team" Dual-Layer Architecture
-
-Standard AI planning tools (`/plan`, `/grill-me`) fail non-technical or product-focused users because they output walls of programming jargon (`props`, `useState`, `interfaces`, `endpoints`) that a client cannot evaluate—or conversely, if prompted to "keep it simple", the AI loses technical precision and writes buggy code.
-
-**v3.0 solves both problems simultaneously with a Dual-Layer Protocol:**
-
-1. **🎯 Layer 1 — Client-First Presentation (Visible at the top for you to review):**
-   - Written **100% in plain, everyday product language** (Zero code jargon).
-   - Includes a **Before vs. After Experience Table**, **Visual ASCII Screen Wireframe**, and **Step-by-Step Interactive User Journey** (*"When you click X -> Screen shows Y"*).
-   - During `/grill-me` interviews, the AI decides pure technical details silently and only asks you **product/UX questions** with clear real-world Pros & Cons.
-2. **🛠️ Layer 2 — AI Technical Spec (Tucked inside a collapsible `<details>` block at the bottom):**
-   - Hidden from your reading flow so you are never overwhelmed by code jargon.
-   - Contains strict file boundaries (`Modify` vs. `Do Not Touch`), TypeScript/Python contract checks, a 5-State UI Matrix, and atomic micro-tasks so the AI executes code with surgical accuracy.
+1. 🧠 **`strict-architect-coder` (v3.0 Dual-Layer Edition):**
+   - **Client-First Communication (Part 1):** Speaks 100% everyday product language to you (Zero code jargon), complete with Before/After tables, visual ASCII wireframes, and step-by-step interactive journeys.
+   - **AI Technical Spec (Part 2 — Collapsed):** Tucks file boundaries, TypeScript/Python contracts, and atomic micro-tasks inside a collapsible `<details>` block so the AI writes surgical, bug-free code without hanging background tasks.
+2. 🎨 **`ui-ux-design-master` (12 GitHub Design Repos + 4 Stability Pillars Edition):**
+   - Synthesizes **all 12 premier UI/UX GitHub repositories** (`UI/UX Pro Max`, `Awesome DESIGN.md`, `Open Design`, `Taste Skill`, `Impeccable` [61 rules], `React Bits`, `Emil Kowalski Skills`, `Hallmark` [57 criteria], `Google DESIGN.md`, `GSAP Skills`, `Scroll World`, `Canvas UI`)
+   - **PLUS 4 Real-World Usability & Stability Pillars:**
+     1. **UX Psychology (Hick's, Fitts's, Jakob's Laws):** Zero blind actions, clear step status badges, specific button labels.
+     2. **Vercel Web Interface Guidelines:** Full keyboard ergonomics, focus rings, zero layout shift.
+     3. **Anti-Overflow Layout Safety:** `min-h-0`/`min-w-0` flex/grid guards and pinned action bars so long chat/content never pushes buttons off-screen.
+     4. **AI & Multi-Agent UI Patterns + 🔒 3D/WebGL Safety Lock:** Live progress timers, mandatory `[Stop/Cancel]` escape hatches, and an opt-in safety lock on heavy 3D/WebGL shaders (`Scroll World` & `Canvas UI`) so standard apps stay fast and lightweight.
 
 ---
 
-## Repository Structure
+## Quick Install / Update on Your Coding Machine
 
-```text
-strict-architect-coder/
-├── SKILL.md                                           # Core v3.0 Dual-Layer Protocol & Laws
-├── references/                                        # Progressive Disclosure Playbooks
-│   ├── client-communication-and-plan-template.md      # Jargon-to-Client Dictionary & Wireframe Templates
-│   ├── planning-and-architecture.md                   # Dependency audit & atomic task decomposition
-│   ├── ui-ux-and-frontend.md                          # Cognitive load audit & 5-State UI Matrix
-│   └── systematic-debugging.md                        # 4-Step scientific root-cause debugging loop
-└── scripts/                                           # Multi-AI Universal Installers
-    ├── install.ps1                                    # Windows PowerShell installer
-    └── install.sh                                     # macOS / Linux Bash installer
-```
-
----
-
-## Quick Install
-
-### 1. One-Line Install for Antigravity (Global)
-
-**Windows (PowerShell):**
+### Windows (PowerShell) — Installs Both Skills Automatically
 ```powershell
 git clone https://github.com/Skill-AI-private/Strict-architect-coder.git "$HOME\.gemini\config\skills\strict-architect-coder"
+& "$HOME\.gemini\config\skills\strict-architect-coder\scripts\install.ps1" -Target all
 ```
 
-**macOS / Linux:**
+*(If you already cloned the repo earlier, just run these 2 lines to pull the new skill and install both:)*
+```powershell
+git -C "$HOME\.gemini\config\skills\strict-architect-coder" pull
+& "$HOME\.gemini\config\skills\strict-architect-coder\scripts\install.ps1" -Target all
+```
+
+### macOS / Linux
 ```bash
 git clone https://github.com/Skill-AI-private/Strict-architect-coder.git ~/.gemini/config/skills/strict-architect-coder
-```
-
-*(If already cloned previously, simply run `git -C "$HOME\.gemini\config\skills\strict-architect-coder" pull` to update to v3.0!)*
-
-### 2. Universal Install Across Antigravity + Claude Code + Copilot
-
-**Windows (PowerShell):**
-```powershell
-git clone https://github.com/Skill-AI-private/Strict-architect-coder.git
-.\Strict-architect-coder\scripts\install.ps1 -Target all
-```
-
-**macOS / Linux:**
-```bash
-git clone https://github.com/Skill-AI-private/Strict-architect-coder.git
-bash ./Strict-architect-coder/scripts/install.sh all
+bash ~/.gemini/config/skills/strict-architect-coder/scripts/install.sh all
 ```
