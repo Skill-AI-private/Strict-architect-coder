@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Universal Installer for strict-architect-coder + ui-ux-design-master (macOS / Linux)
+# Universal Installer for strict-architect-coder (v3.5 + Graphify) + ui-ux-design-master
 # Supports: Antigravity, Claude Code, GitHub Copilot, Cursor, and Workspace installation
 
 set -e
@@ -18,7 +18,7 @@ install_suite() {
         cp -f "$REPO_ROOT/SKILL.md" "$dest1/"
         cp -rf "$REPO_ROOT/references" "$dest1/"
     fi
-    echo "[OK] Ready: strict-architect-coder -> $dest1"
+    echo "[OK] Ready: strict-architect-coder (v3.5 + Graphify Engine) -> $dest1"
 
     if [[ -d "$REPO_ROOT/ui-ux-design-master" ]]; then
         mkdir -p "$dest2"

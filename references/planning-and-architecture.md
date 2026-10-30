@@ -1,4 +1,4 @@
-# Playbook: Spec-Driven Planning & Architecture (Dual-Layer v3.0)
+# Playbook: Spec-Driven Planning & Architecture (Dual-Layer + Graphify v3.5)
 
 Use this playbook when executing **Tier 2** or **Tier 3** features, system design, or multi-file refactoring.
 
@@ -10,19 +10,25 @@ Every plan must serve two audiences simultaneously without mixing their language
 1. **Top Layer (For the Human Client / Product Owner):**
    - Explains **what changes in the product experience** using everyday language, Before/After tables, ASCII wireframes, and step-by-step user journeys (see [client-communication-and-plan-template.md](./client-communication-and-plan-template.md)).
 2. **Bottom Collapsible Layer (`<details>` Technical Spec for the AI Engineer):**
-   - Contains the exact engineering blueprint described below so the coding phase is 100% deterministic.
+   - Contains the exact engineering blueprint and **Graphify structural audit** described below so the coding phase is 100% deterministic.
 
 ---
 
-## 2. Pre-Planning Dependency Audit (For the AI Technical Spec)
+## 2. Pre-Planning Dependency Audit (Powered by Graphify)
 
-Before writing the collapsed Technical Spec, trace the 3-layer dependency chain of the target feature:
+Before writing the collapsed Technical Spec, trace the 3-layer dependency chain of the target feature using `graphify-out/GRAPH_REPORT.md` and `graphify-out/graph.json` (if present) or targeted file inspection:
 
-1. **Upstream Data Source:** Where does the data or state originate? (API response, database query, global store, URL params, parent props).
-2. **Transformation Layer:** How is the data validated, formatted, or computed?
-3. **Downstream Consumers:** Which UI components, API endpoints, or background workers consume this output?
+1. **Subsystem & God-Node Check (`GRAPH_REPORT.md`):**
+   - Which **Leiden Community Cluster** owns this feature?
+   - Does the change touch a **God Node** (a central file with high incoming/outgoing edges)? If yes, lock its existing public signatures and only extend backward-compatibly.
+2. **Upstream Data Source (`EXTRACTED` Incoming Edges):**
+   - Where does the data or state originate? (API response, database query, global store, URL params, parent props).
+3. **Transformation Layer:**
+   - How is the data validated, formatted, or computed?
+4. **Downstream Consumers (`EXTRACTED` Outgoing Edges):**
+   - Which UI components, API endpoints, or background workers consume this output?
 
-> **Backward-Compatibility Rule:** If changing a shared interface/type breaks >2 downstream consumers, prefer extending the interface with optional fields rather than breaking existing callers.
+> **Backward-Compatibility Rule:** If changing a shared interface/type or God Node breaks >2 downstream consumers, prefer extending the interface with optional fields rather than breaking existing callers.
 
 ---
 
