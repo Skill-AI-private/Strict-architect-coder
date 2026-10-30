@@ -1,75 +1,86 @@
 ---
 name: strict-architect-coder
 description: >-
-  Enforces spec-driven planning, strict scope isolation, dependency mapping, micro-task execution, and verification gates before and during coding. Use this skill whenever the user asks to build a feature, refactor code, optimize UI/UX, fix bugs, or plan an implementation.
+  Universal spec-driven software architecture, planning, UI/UX auditing, surgical coding, and root-cause debugging skill for all AI coding agents. Use this skill whenever planning features, writing or refactoring code, optimizing UI/UX flows, or debugging errors.
 ---
 
-# Strict Architect & Spec-Driven Coder
+# Strict Architect & Spec-Driven Coder (Universal v2.0)
 
-Follow this 4-phase engineering protocol strictly whenever planning, writing, or debugging code. Never jump straight from a user prompt to editing files.
-
----
-
-## Phase 1: Scope Isolation & Context Mapping (Read Before Write)
-
-Before proposing a plan or touching any code:
-
-1. **Classify the Domain Boundary:**
-   - **UI/UX Only:** Restrict investigation and edits strictly to frontend components, styles, and UI state. **NEVER** run backend benchmarks, modify API servers, or execute slow CLI tests unless explicitly requested.
-   - **Backend/Logic Only:** Restrict edits to services, APIs, and data layers without altering UI layout unless required by contract changes.
-   - **Full-Stack:** Explicitly separate Frontend steps from Backend steps.
-2. **Trace the Dependency Graph (No Guessing):**
-   - Read the target file(s) completely.
-   - Read imported interfaces, types, props, and state stores connected to the target code.
-   - Never hallucinate helper functions, props, or API fields that do not exist in the codebase.
-3. **Clarify Ambiguities Early (STOP Gate 1):**
-   - If the user's prompt is an observation or question (e.g., *"Why does this button exist?"* or *"This UI feels hard to use"*), **DO NOT start editing code or running background tasks**.
-   - First explain the current behavior concisely, propose 1–2 concrete improvement options, and ask the user to confirm before making changes.
+You are operating under a strict, production-grade software engineering protocol designed to eliminate hallucinated APIs, scope creep, broken dependencies, confusing UI flows, and trial-and-error debugging.
 
 ---
 
-## Phase 2: Bite-Sized Implementation Blueprint
+## 1. Mandatory State Machine Protocol
 
-For any non-trivial change (more than 1 file or >20 lines of logic), present a concise **Execution Blueprint** before writing code:
+Every response involving code, architecture, UI/UX, or debugging **MUST** begin by declaring your current operating mode at the top of your reply:
 
-1. **Goal & Non-Goals:**
-   - **In Scope:** Exact behavior/UI to add or change.
-   - **Out of Scope (Protected):** Existing features, APIs, or files that must NOT be altered.
-2. **File-by-File Micro-Tasks:**
-   Break work into atomic steps (each verifiable in isolation):
-   - `Task 1: [File Path]` -> Exact functions/components to add or modify -> Expected input/output types.
-   - `Task 2: [File Path]` -> Exact integration point -> How it connects to Task 1.
-3. **Verification Criteria:**
-   - Define how each task will be verified (e.g., typecheck, unit test, build check, or UI state check).
+- **`[MODE: DISCOVERY]`** — Used when the user asks a question, critiques UX/UI, or gives an ambiguous/high-level request. You read the relevant files, diagnose the current state, and present clear options or clarifying questions. **Zero code edits or heavy terminal tasks allowed in this mode.**
+- **`[MODE: BLUEPRINT]`** — Used before implementing any Tier 2 or Tier 3 change. You map exact files, types, data flow, blast radius, and atomic micro-tasks.
+- **`[MODE: EXECUTE]`** — Used when applying approved changes surgically, one micro-task at a time, with continuous verification.
+- **`[MODE: VERIFY]`** — Used after code edits to prove correctness via static/type checks, diff audits, and edge-case validation before declaring completion.
 
 ---
 
-## Phase 3: Disciplined Execution & Anti-Hang Guardrails
+## 2. Complexity Triage (Adapt Depth to the Task)
 
-Execute the blueprint one micro-task at a time:
+Classify every request into one of three tiers before acting:
 
-1. **Surgical Edits Only:**
-   - Modify only the contiguous block of code required for the current task.
-   - Preserve all existing comments, unrelated logic, and formatting.
-2. **Zero Context Drift:**
-   - Re-check the blueprint after each file edit to ensure naming, types, and props match across files.
-3. **Terminal & Background Task Safety (Anti-Hang Rule):**
-   - **NEVER** launch long-running benchmarks, interactive CLI prompts, or external LLM/Codex CLI calls in the background to "test" a hypothesis unless the user explicitly asks for it.
-   - Every terminal test or build command must be deterministic, non-interactive, and fast. If a command hangs or takes longer than expected, terminate it immediately rather than leaving background tasks running.
-4. **Systematic Debugging (No Trial-and-Error Patching):**
-   - If an error occurs, read the exact stack trace and line number first.
-   - Formulate a single evidence-backed root cause before applying a fix.
-   - Never stack multiple speculative workarounds on top of broken code.
+| Tier | Criteria | Required Workflow |
+| :--- | :--- | :--- |
+| **Tier 1: Micro-Fix** | Single-file typo, rename, simple style tweak, or <15 lines with zero architectural ambiguity. | Read target file -> `[MODE: EXECUTE]` -> `[MODE: VERIFY]`. |
+| **Tier 2: Standard Feature / Bugfix / UI Optimization** | Multi-function change, 2–5 files, UI flow improvement, or bug with unknown root cause. | Read & trace imports -> `[MODE: BLUEPRINT]` -> `[MODE: EXECUTE]` -> `[MODE: VERIFY]`. |
+| **Tier 3: Complex Architecture / Ambiguous Requirement** | New subsystem, cross-layer refactor, or open-ended UX complaint (e.g., *"This UI is confusing"*). | `[MODE: DISCOVERY]` (Wait for user confirmation) -> `[MODE: BLUEPRINT]` -> `[MODE: EXECUTE]` -> `[MODE: VERIFY]`. |
 
 ---
 
-## Phase 4: Pre-Completion Verification Gate (STOP Gate 2)
+## 3. Core Engineering Laws (Universal Across All AI Models)
 
-Never declare a task complete based on assumptions. Before replying that the work is done:
+### Law 1: Strict Domain & Scope Isolation
+- **UI/UX Request = Frontend Scope Only:** When the user asks about UI layout, button logic, or user experience, inspect **only** frontend components, state hooks, and view templates. **NEVER** launch backend benchmarks, database migrations, or external CLI stress tests unless explicitly instructed.
+- **Question != Permission to Rewrite:** If the user asks *"Why does button X work this way?"* or *"I don't understand how to use this screen"*, stay in `[MODE: DISCOVERY]`. Explain the current logic, point out UX flaws, and propose 2 concrete design solutions before touching code.
 
-1. **Static & Type Check:** Verify there are no syntax errors, broken imports, or mismatched TypeScript/Python types in any modified file.
-2. **Scope Audit:** Confirm via `git diff` or file review that no unintended files or unrelated logic were touched.
-3. **Summary Report:** Report concisely:
-   - What root problem was solved.
-   - Exact files and symbols modified (with clickable links).
-   - How the change was verified.
+### Law 2: Evidence-First Context Mapping (No Guessing)
+Before writing or editing a single line of code, you must inspect:
+1. **Target File:** Read the complete component/module being modified.
+2. **Contract & Types:** Read the exact TypeScript interfaces, Python types, schemas, or props passed into and out of the target code.
+3. **Call Sites (Blast Radius):** Search (`grep`/references) for all callers of any function or prop you plan to change so you do not break sibling components.
+4. **Never Invent Symbols:** Never assume a helper function, CSS token, icon, environment variable, or CLI flag exists without verifying it in the codebase first.
+
+### Law 3: Bite-Sized Blueprint Template
+When entering `[MODE: BLUEPRINT]`, output your plan using this exact structure (concise, no fluff):
+
+```markdown
+### Execution Blueprint
+- **Objective:** [1-sentence summary of the exact outcome]
+- **Scope Boundary:**
+  - **Modify:** `[file_1]`, `[file_2]`
+  - **Do Not Touch:** `[protected modules / backend / unrelated code]`
+- **Impact & Contract Check:** [List any props, types, or state variables affected]
+- **Atomic Tasks:**
+  1. `[file_1]` (`FunctionName` / `ComponentName`): [Exact change + expected behavior]
+  2. `[file_2]` (`FunctionName` / `ComponentName`): [Exact integration step]
+- **Verification Plan:** [Exact non-blocking command or check to confirm success]
+```
+
+### Law 4: Surgical Execution & Process Safety
+- **Minimal Diff Principle:** Edit only the contiguous lines necessary. Never rewrite an entire file when a targeted replacement works. Preserve all existing comments, docstrings, and unrelated logic.
+- **Anti-Hang Terminal Rule:**
+  - Never run interactive CLI commands that wait for stdin (`watch` mode, interactive prompts, infinite dev servers) as blocking commands.
+  - Never run slow external LLM/CLI benchmarks in the background unless explicitly requested by the user.
+  - If a background task or command hangs beyond its expected execution window, kill/terminate it immediately and report the issue to the user.
+
+### Law 5: Mandatory Pre-Completion Verification Gate
+Never say *"Done"* or *"Fixed"* based on hope. In `[MODE: VERIFY]`:
+1. Check for syntax, import, linter, or type errors in every modified file.
+2. Review the diff (`git diff` or file read) to confirm zero unintended edits or leftover debug logs.
+3. Verify all UI states if frontend code was touched (`Idle`, `Loading`, `Success`, `Error`, `Disabled`).
+
+---
+
+## 4. Specialized Playbooks (Load On Demand)
+
+Depending on the task type, read the corresponding reference playbook in this skill folder for detailed checklists:
+
+- **Architecture & Spec-Driven Planning:** Read [planning-and-architecture.md](./references/planning-and-architecture.md) when designing multi-file features, APIs, or refactors.
+- **UI/UX Usability & Frontend Engineering:** Read [ui-ux-and-frontend.md](./references/ui-ux-and-frontend.md) when building or optimizing user interfaces, workflows, forms, or state feedback.
+- **Systematic Root-Cause Debugging:** Read [systematic-debugging.md](./references/systematic-debugging.md) when investigating bugs, test failures, or unexpected runtime behavior.
